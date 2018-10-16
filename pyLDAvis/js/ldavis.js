@@ -605,16 +605,28 @@ var LDAvis = function(to_select, data_or_file_name) {
 
             // topic input container:
             var topicDiv = document.createElement("div");
-            topicDiv.setAttribute("style", "padding: 5px; background-color: #e8e8e8; display: inline-block; width: " + mdswidth + "px; height: 50px; float: left");
+            topicDiv.setAttribute("style", "padding: 5px; background-color: #e8e8e8; display: inline-block; width: " + mdswidth + "px; height: 60px; float: left");
             inputDiv.appendChild(topicDiv);
+
+            var topicForm = document.createElement("div");
+            topicForm.setAttribute("class","form-horizontal");
+            topicForm.setAttribute("role","form");
+            topicDiv.appendChild(topicForm);
+
+            var topicInputLine = document.createElement("div");
+            topicInputLine.setAttribute("class","input-group");
 
             var topicLabel = document.createElement("label");
             topicLabel.setAttribute("for", topicID);
-            topicLabel.setAttribute("style", "font-family: sans-serif; font-size: 14px");
-            topicLabel.innerHTML = "Selected Topic: <span id='" + topicID + "-value'></span>";
-            topicDiv.appendChild(topicLabel);
+            topicLabel.setAttribute("style","padding-top: 5px; margin-right: 5px");
+            topicLabel.innerHTML = "Topic: <span id='" + topicID + "-value'></span>";
+            topicInputLine.appendChild(topicLabel);
+
+
 
             var topicInput = document.createElement("input");
+            topicInput.setAttribute("type","number");
+            topicInput.setAttribute("class","form-control");
             topicInput.setAttribute("style", "width: 50px");
             topicInput.type = "text";
             topicInput.min = "0";
@@ -622,49 +634,53 @@ var LDAvis = function(to_select, data_or_file_name) {
             topicInput.step = "1";
             topicInput.value = "0"; // a value of 0 indicates no topic is selected
             topicInput.id = topicID;
-            topicDiv.appendChild(topicInput);
+            topicInputLine.appendChild(topicInput);
+
+            var btnGrp = document.createElement("div");
+            btnGrp.setAttribute("role", "group");
+            btnGrp.setAttribute("class","input-group-append");
+            topicInputLine.appendChild(btnGrp);
 
             var previous = document.createElement("button");
             previous.setAttribute("id", topicDown);
-            previous.setAttribute("style", "margin-left: 5px");
+            previous.setAttribute("class","btn btn-primary");
             previous.innerHTML = "Previous Topic";
-            topicDiv.appendChild(previous);
+            btnGrp.appendChild(previous);
 
             var next = document.createElement("button");
             next.setAttribute("id", topicUp);
-            next.setAttribute("style", "margin-left: 5px");
+            next.setAttribute("class", "btn btn-primary");
             next.innerHTML = "Next Topic";
-            topicDiv.appendChild(next);
+            btnGrp.appendChild(next);
 
             var clear = document.createElement("button");
             clear.setAttribute("id", topicClear);
-            clear.setAttribute("style", "margin-left: 5px");
+            clear.setAttribute("class", "btn btn-primary");
             clear.innerHTML = "Clear Topic";
-            topicDiv.appendChild(clear);
+            btnGrp.appendChild(clear);
+            topicForm.appendChild(topicInputLine);
 
             // lambda inputs
             //var lambdaDivLeft = 8 + mdswidth + margin.left + termwidth;
             var lambdaDivWidth = barwidth;
             var lambdaDiv = document.createElement("div");
             lambdaDiv.setAttribute("id", lambdaInputID);
-            lambdaDiv.setAttribute("style", "padding: 5px; background-color: #e8e8e8; display: inline-block; height: 50px; width: " + lambdaDivWidth + "px; float: right; margin-right: 30px");
+            lambdaDiv.setAttribute("style", "padding: 5px; background-color: #e8e8e8; display: inline-block; height: 60px; width: " + lambdaDivWidth + "px; float: right; margin-right: 30px");
             inputDiv.appendChild(lambdaDiv);
 
             var lambdaZero = document.createElement("div");
-            lambdaZero.setAttribute("style", "padding: 5px; height: 20px; width: 220px; font-family: sans-serif; float: left");
+            lambdaZero.setAttribute("style", "padding: 5px; height: 20px; width: 220px;float: left");
             lambdaZero.setAttribute("id", lambdaZeroID);
             lambdaDiv.appendChild(lambdaZero);
             var xx = d3.select("#" + lambdaZeroID)
-                    .append("text")
+                    .append("span")
                     .attr("x", 0)
                     .attr("y", 0)
-                    .style("font-size", "14px")
-                    .text("Slide to adjust relevance metric:");
+                    .text("Relevance metric:");
             var yy = d3.select("#" + lambdaZeroID)
                     .append("text")
                     .attr("x", 125)
                     .attr("y", -5)
-                    .style("font-size", "10px")
                     .style("position", "absolute")
                     .text("(2)");
 
