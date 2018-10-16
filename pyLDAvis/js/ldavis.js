@@ -258,8 +258,9 @@ var LDAvis = function(to_select, data_or_file_name) {
 
         // Create new svg element (that will contain everything):
         var svg = d3.select(to_select).append("svg")
-                .attr("width", mdswidth + barwidth + margin.left + termwidth + margin.right)
-                .attr("height", mdsheight + 2 * margin.top + margin.bottom + 2 * rMax);
+                .attr("viewBox", "0 0 " +
+                    (mdswidth + barwidth + margin.left + termwidth + margin.right) + " " +
+                    (mdsheight + 2 * margin.top + margin.bottom + 2 * rMax));
 
         // Create a group for the mds plot
         var mdsplot = svg.append("g")
@@ -599,7 +600,7 @@ var LDAvis = function(to_select, data_or_file_name) {
             // create container div for topic and lambda input:
             var inputDiv = document.createElement("div");
             inputDiv.setAttribute("id", topID);
-            inputDiv.setAttribute("style", "width: 1210px"); // to match the width of the main svg element
+            inputDiv.setAttribute("style", "min-width: 1090px"); // to match the width of the main svg element
             document.getElementById(visID).appendChild(inputDiv);
 
             // topic input container:
